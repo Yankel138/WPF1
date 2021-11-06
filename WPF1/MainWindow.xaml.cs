@@ -23,8 +23,8 @@ namespace WPF1
         static string text = "";
         static double a = 0;
         static double b = 0;
-        static double c = 0;
-        static string operation;
+        static string operation = "";
+        static bool first = true;
 
         public MainWindow()
         {
@@ -34,29 +34,26 @@ namespace WPF1
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             text += (sender as Button).Content;
+            textBlock.Text += (sender as Button).Content;
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Button1_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_oper(object sender, RoutedEventArgs e)
+        private void Button_Click_Oper(object sender, RoutedEventArgs e)
         {
             if (operation == "")
             {
-                a = Convert.ToDouble(text);
+                if (first)
+                {
+                    a = Convert.ToDouble(text);
+                    first = false;
+                }
+                text = "";
+                
             }
             else
             {
-
-                b = Convert.ToDouble(text);
+                Button_Click_Ravno(sender, e);
             }
+            textBlock.Text += (sender as Button).Content;
             operation = (string)(sender as Button).Content;
             
         }
@@ -65,31 +62,32 @@ namespace WPF1
         {
             a = 0;
             b = 0;
-            c = 0;
             text = "";
             operation = "";
             textBlock.Text = "";
         }
 
-        private void Button_Click_ravno(object sender, RoutedEventArgs e)
+        private void Button_Click_Ravno(object sender, RoutedEventArgs e)
         {
+            b = Convert.ToDouble(text);
+            text = "";
             switch (operation)
             {
                 case "+":
-                    c = a + b;
+                    a += b;
                     break;
                 case "-":
-                    c = a - b;
+                    a -= b;
                     break;
                 case "*":
-                    c = a * b;
+                    a *= b;
                     break;
                 case "/":
-                    c = a / b;
+                    a /= b;
                     break;
             }
+            textBlock.Text = a.ToString();
+            operation = "";
         }
-
-       
     }
 }
