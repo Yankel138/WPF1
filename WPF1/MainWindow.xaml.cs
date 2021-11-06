@@ -95,5 +95,15 @@ namespace WPF1
             operation = "";
             first = true;
         }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Button).FontSize = 24;
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Button).FontSize = 18;
+        }
     }
 }
