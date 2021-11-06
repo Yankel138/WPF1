@@ -25,7 +25,7 @@ namespace WPF1
         static double b = 0;
         static string operation = "";
         static bool first = true;
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -33,6 +33,10 @@ namespace WPF1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (textBlock.Text == "0")
+            {
+                textBlock.Text = "";
+            }
             text += (sender as Button).Content;
             textBlock.Text += (sender as Button).Content;
         }
@@ -43,11 +47,15 @@ namespace WPF1
             {
                 if (first)
                 {
-                    a = Convert.ToDouble(text);
+                    if (text != "")
+                    {
+                        a = Convert.ToDouble(text);
+                    }
+
                     first = false;
                 }
                 text = "";
-                
+
             }
             else
             {
@@ -55,7 +63,7 @@ namespace WPF1
             }
             textBlock.Text += (sender as Button).Content;
             operation = (string)(sender as Button).Content;
-            
+
         }
 
         private void Button_Click_Clear(object sender, RoutedEventArgs e)
@@ -64,7 +72,8 @@ namespace WPF1
             b = 0;
             text = "";
             operation = "";
-            textBlock.Text = "";
+            textBlock.Text = "0";
+            first = true;
         }
 
         private void Button_Click_Ravno(object sender, RoutedEventArgs e)
@@ -86,6 +95,9 @@ namespace WPF1
                     a /= b;
                     break;
             }
+            if (a == 0)
+                first = true;
+
             textBlock.Text = a.ToString();
             operation = "";
         }
